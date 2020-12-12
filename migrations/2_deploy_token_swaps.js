@@ -18,10 +18,6 @@ const owner = "0xB844C65F3E161061bA5D5dD8497B3C04B71c4c83";
 const wallet = "0xB844C65F3E161061bA5D5dD8497B3C04B71c4c83";
 
 module.exports = async function(deployer, network) {
-    // get the current deployer address
-    const accounts = await web3.eth.getAccounts();
-    const curDeployer = accounts[0];
-
     // TokenSwaps deployment
     let tokenSwaps = await deployer.deploy(TokenSwaps,
         tokenFromAddress,
