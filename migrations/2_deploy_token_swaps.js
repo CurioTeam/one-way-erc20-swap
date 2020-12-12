@@ -30,10 +30,8 @@ module.exports = async function(deployer, network) {
     );
     console.log("tokenSwaps address: ", tokenSwaps.address);
 
-    // get tokenTo from address
-    let tokenTo = await IERC20.at(tokenToAddress);
-
     // transfer tokenTo to TokenSwaps
+    let tokenTo = await IERC20.at(tokenToAddress);
     await tokenTo.transfer(
         tokenSwaps.address,
         tokenToAmt
@@ -42,6 +40,16 @@ module.exports = async function(deployer, network) {
     // transfer owner permission
     await tokenSwaps.transferOwnership(
         owner
+    );
+
+    // use swap
+    let tokenFrom = await IERC20.at(tokenFromAddress);
+    await tokenFrom.approve(
+        tokenSwaps.address,
+        ether("1")
+    );
+    await tokenSwaps.swap(
+        ether("1")
     );
 
     // write addresses and ABI to files
