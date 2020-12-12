@@ -38,6 +38,7 @@ contract TokenSwaps is Pausable, FundsManager {
     }
 
     /**
+     * @notice Token must be pre-approved
      * @dev Swap token with ratio 1:1 for sender
      * @param _amount The amount of tokens to swap
      **/
@@ -46,6 +47,7 @@ contract TokenSwaps is Pausable, FundsManager {
     }
 
     /**
+     * @notice Token must be pre-approved
      * @dev Swap token with ratio 1:1 from sender to _to address
      * @param _amount The amount of tokens to swap
      * @param _to Token recipient address
