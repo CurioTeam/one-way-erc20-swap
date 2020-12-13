@@ -208,6 +208,108 @@ describe('Contract TokenSwaps.sol', function () {
         })
     })
 
+    describe('withdraw any funds from contract by owner', function() {
+        beforeEach(async function () {
+            this.supplyTokenOther = ether('1000');
+            this.supplyTokenOtherSecond = ether('500');
+
+            this.tokenOther = await ERC20Mock.new(
+                'Test Other Token',
+                'TOT',
+                this.tokenSwaps.address,
+                this.supplyTokenOther
+            );
+
+            this.tokenOtherSecond = await ERC20Mock.new(
+                'Test Other Token Second',
+                'TOTS',
+                this.tokenSwaps.address,
+                this.supplyTokenOtherSecond
+            );
+        });
+
+        it('should withdraw unsold tokenTo by owner', async function () {
+            await this.tokenTo.mint(this.tokenSwaps.address, INITIAL_SUPPLY);
+
+            const ownerBalanceBefore = await this.tokenTo.balanceOf(owner);
+            const contractBalanceBefore = await this.tokenTo.balanceOf(
+                this.tokenSwaps.address
+            );
+            const amount = ether('200');
+
+            await this.tokenSwaps.withdrawFunds(
+                this.tokenTo.address,
+                amount,
+                { from: owner });
+
+            (await this.tokenTo.balanceOf(this.tokenSwaps.address))
+                .should.be.bignumber.equal(contractBalanceBefore.sub(amount));
+            (await this.tokenTo.balanceOf(owner))
+                .should.be.bignumber.equal(ownerBalanceBefore.add(amount));
+        });
+
+        it('should withdraw tokens by owner', async function () {
+            const ownerBalanceBefore = await this.tokenOther.balanceOf(owner);
+            const contractBalanceBefore = await this.tokenOther.balanceOf(
+                this.tokenSwaps.address
+            );
+            const amount = ether('200');
+
+            await this.tokenSwaps.withdrawFunds(
+                this.tokenOther.address,
+                amount,
+                { from: owner });
+
+            (await this.tokenOther.balanceOf(this.tokenSwaps.address))
+                .should.be.bignumber.equal(contractBalanceBefore.sub(amount));
+            (await this.tokenOther.balanceOf(owner))
+                .should.be.bignumber.equal(ownerBalanceBefore.add(amount));
+        });
+
+        it('should fail on withdraw tokens by anyone', async function () {
+            await expectRevert(
+                this.tokenSwaps.withdrawFunds(
+                    this.tokenOther.address,
+                    this.supplyTokenOther,
+                    { from: anyone }),
+                'Ownable: caller is not the owner'
+            );
+        });
+
+        it('should withdraw tokens by owner', async function () {
+            const ownerBalanceBefore = await this.tokenOther.balanceOf(owner);
+            const contractBalanceBefore = await this.tokenOther.balanceOf(
+                this.tokenSwaps.address
+            );
+            const contractBalanceBeforeSecond = await this.tokenOtherSecond.balanceOf(
+                this.tokenSwaps.address
+            );
+
+            await this.tokenSwaps.withdrawAllFunds(
+                [this.tokenOther.address, this.tokenOtherSecond.address],
+                { from: owner });
+
+            (await this.tokenOther.balanceOf(this.tokenSwaps.address))
+                .should.be.bignumber.equal(ether('0'));
+            (await this.tokenOther.balanceOf(owner))
+                .should.be.bignumber.equal(ownerBalanceBefore.add(contractBalanceBefore));
+
+            (await this.tokenOtherSecond.balanceOf(this.tokenSwaps.address))
+                .should.be.bignumber.equal(ether('0'));
+            (await this.tokenOtherSecond.balanceOf(owner))
+                .should.be.bignumber.equal(ownerBalanceBefore.add(contractBalanceBeforeSecond));
+        });
+
+        it('should fail on withdraw all tokens by anyone', async function () {
+            await expectRevert(
+                this.tokenSwaps.withdrawAllFunds(
+                    [this.tokenOther.address, this.tokenOtherSecond.address],
+                    { from: anyone }),
+                'Ownable: caller is not the owner'
+            );
+        });
+    });
+
     it('should fail on sending ether direct to contract', async function () {
         await expectRevert(
             this.tokenSwaps.sendTransaction({ from: anyone, value: ether('1') }),
