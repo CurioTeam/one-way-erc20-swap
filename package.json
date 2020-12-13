@@ -1,7 +1,7 @@
 {
-  "name": "csc-additional-contracts",
+  "name": "token-swaps-contract",
   "version": "1.0.0",
-  "description": "Capital Dex Core smart contracts",
+  "description": "Simple contract allowed 1:1 swap of one ERC20 token to another",
   "author": "Curio Capital AG",
   "license": "MIT",
   "directories": {
@@ -10,7 +10,7 @@
   "engines": {
     "node": "^14.15.0"
   },
-  "repository": "https://github.com/CurioTeam/csc-additional-contracts",
+  "repository": "https://github.com/CurioTeam/token-swaps-contract",
   "scripts": {
     "compile": "npx truffle compile",
     "compile:all": "npx truffle compile --all",
