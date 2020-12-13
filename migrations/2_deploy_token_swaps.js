@@ -18,6 +18,8 @@ const owner = "0xB844C65F3E161061bA5D5dD8497B3C04B71c4c83";
 const wallet = "0xB844C65F3E161061bA5D5dD8497B3C04B71c4c83";
 
 module.exports = async function(deployer, network) {
+    if (network === "test") return; // skip migrations if use test network
+
     // TokenSwaps deployment
     let tokenSwaps = await deployer.deploy(TokenSwaps,
         tokenFromAddress,

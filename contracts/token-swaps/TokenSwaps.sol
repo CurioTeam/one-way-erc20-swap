@@ -43,7 +43,7 @@ contract TokenSwaps is Pausable, FundsManager {
      * @param _amount The amount of tokens to swap
      **/
     function swap(uint256 _amount) public {
-        swap(_amount, msg.sender);
+        swapToAddress(_amount, msg.sender);
     }
 
     /**
@@ -52,7 +52,7 @@ contract TokenSwaps is Pausable, FundsManager {
      * @param _amount The amount of tokens to swap
      * @param _to Token recipient address
      **/
-    function swap(uint256 _amount, address _to) public whenNotPaused {
+    function swapToAddress(uint256 _amount, address _to) public whenNotPaused {
         tokenFrom.transferFrom(msg.sender, wallet, _amount);
         tokenTo.transfer(_to, _amount);
 
