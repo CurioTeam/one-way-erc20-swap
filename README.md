@@ -2,7 +2,7 @@
 
 Simple contract allowed 1:1 swap of one ERC20 token to another.
 
-# For Developers
+## For Developers
 
 ### Install dependencies
 
@@ -22,3 +22,7 @@ npm run compile
 ```sh
 npm run test:truffle
 ```
+
+## License
+
+[MIT](LICENSE)
