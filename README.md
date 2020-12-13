@@ -1,4 +1,6 @@
-# Capital Dex smart contracts
+# ERC-20 one way swap
+
+Simple contract allowed 1:1 swap of one ERC20 token to another.
 
 # For Developers
 

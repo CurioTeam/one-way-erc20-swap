@@ -1,5 +1,5 @@
 {
-  "name": "token-swaps-contract",
+  "name": "one-way-erc20-swap",
   "version": "1.0.0",
   "description": "Simple contract allowed 1:1 swap of one ERC20 token to another",
   "author": "Curio Capital AG",
@@ -10,7 +10,7 @@
   "engines": {
     "node": "^14.15.0"
   },
-  "repository": "https://github.com/CurioTeam/token-swaps-contract",
+  "repository": "https://github.com/CurioTeam/one-way-erc20-swap",
   "scripts": {
     "compile": "npx truffle compile",
     "compile:all": "npx truffle compile --all",
