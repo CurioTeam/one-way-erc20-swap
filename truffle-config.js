@@ -35,7 +35,7 @@ const config = {
       gasLimit: 10 * 1000 * 1000,
       provider: getProvider(`wss://kovan.infura.io/ws/v3/${ process.env.INFURA_PROJECT_ID }`),
       websockets: true,
-      skipDryRun: true,
+      skipDryRun: false,
       network_id: '42'
     },
   },
@@ -53,6 +53,12 @@ const config = {
         evmVersion: "istanbul"
       }
     }
+  },
+  plugins: [
+    'truffle-plugin-verify'
+  ],
+  api_keys: {
+    etherscan: process.env.ETHERSCAN_API_KEY
   }
 };
 
