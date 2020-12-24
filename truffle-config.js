@@ -35,7 +35,7 @@ const config = {
       gasLimit: 10 * 1000 * 1000,
       provider: getProvider(`wss://kovan.infura.io/ws/v3/${ process.env.INFURA_PROJECT_ID }`),
       websockets: true,
-      skipDryRun: false,
+      skipDryRun: true,
       network_id: '42'
     },
   },
