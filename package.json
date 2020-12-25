@@ -1,6 +1,6 @@
 {
   "name": "one-way-erc20-swap",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Simple contract allowed 1:1 swap of one ERC20 token to another",
   "author": "Curio Capital AG",
   "license": "MIT",

@@ -38,6 +38,14 @@ const config = {
       skipDryRun: true,
       network_id: '42'
     },
+    mainnet: {
+      gasPrice: 110 * 1000 * 1000 * 1000, // 110 gwei
+      gasLimit: 2 * 1000 * 1000, // 2,000,000
+      provider: getProvider(`wss://mainnet.infura.io/ws/v3/${ process.env.INFURA_PROJECT_ID }`),
+      websockets: true,
+      skipDryRun: true,
+      network_id: '1'
+    },
   },
   mocha: {
     timeout: 10000
